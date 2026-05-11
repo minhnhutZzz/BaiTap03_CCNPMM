@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 // Hàm tạo người dùng mới (Đăng ký)
-const createUserService = async (name, email, password) => {
+const createUserService = async (name, email, password, phone, address) => {
     try {
         // check user exist
         const user = await User.findOne({ email });
@@ -22,6 +22,8 @@ const createUserService = async (name, email, password) => {
             name: name,
             email: email,
             password: hashPassword,
+            phone: phone,
+            address: address,
             role: "User"
         })
         return result;
@@ -80,11 +82,19 @@ const loginService = async (email1, password) => {
     }
 }
 
-// Hàm lấy danh sách tất cả người dùng
-const getUserService = async () => {
+// Hàm lấy danh sách tất cả người dùng (Có tìm kiếm)
+const getUserService = async (search) => {
     try {
-        // .select("-password") để không lấy trường password gửi về client
-        let result = await User.find({}).select("-password");
+        let query = {};
+        if (search) {
+            query = {
+                $or: [
+                    { name: { $regex: search, $options: 'i' } },
+                    { email: { $regex: search, $options: 'i' } }
+                ]
+            };
+        }
+        let result = await User.find(query).select("-password").sort({ createdAt: -1 });
         return result;
 
     } catch (error) {
@@ -93,8 +103,32 @@ const getUserService = async () => {
     }
 }
 
+// Hàm cập nhật thông tin người dùng
+const updateUserService = async (id, name, phone, address) => {
+    try {
+        let result = await User.findByIdAndUpdate(id, { name, phone, address }, { new: true });
+        return { EC: 0, data: result, EM: "Cập nhật thành công" };
+    } catch (error) {
+        console.log(error);
+        return { EC: 1, EM: error.message };
+    }
+}
+
+// Hàm xóa người dùng
+const deleteUserService = async (id) => {
+    try {
+        let result = await User.findByIdAndDelete(id);
+        return { EC: 0, data: result, EM: "Xóa thành công" };
+    } catch (error) {
+        console.log(error);
+        return { EC: 1, EM: error.message };
+    }
+}
+
 module.exports = {
     createUserService,
     loginService,
-    getUserService
+    getUserService,
+    updateUserService,
+    deleteUserService
 }

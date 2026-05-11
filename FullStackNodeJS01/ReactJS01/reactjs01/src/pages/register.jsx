@@ -8,9 +8,9 @@ const RegisterPage = () => {
     const navigate = useNavigate();
 
     const onFinish = async (values) => {
-        const { name, email, password } = values;
+        const { name, email, password, phone, address } = values;
 
-        const res = await createUserApi(name, email, password);
+        const res = await createUserApi(name, email, password, phone, address);
 
         if (res) {
             notification.success({
@@ -27,59 +27,69 @@ const RegisterPage = () => {
     };
 
     return (
-        <Row justify={"center"} style={{ marginTop: "30px" }}>
-            <Col xs={24} md={16} lg={8}>
-                <fieldset style={{
-                    padding: "15px",
-                    margin: "5px",
-                    border: "1px solid #ccc",
-                    borderRadius: "5px"
-                }}>
-                    <legend>Đăng Ký Tài Khoản</legend>
-                    <Form
-                        name="basic"
-                        onFinish={onFinish}
-                        autoComplete="off"
-                        layout='vertical'
+        <div className="auth-page">
+            <div className="auth-container">
+                <h2>Đăng Ký Tài Khoản</h2>
+                <Form
+                    name="basic"
+                    onFinish={onFinish}
+                    autoComplete="off"
+                    layout='vertical'
+                    size="large"
+                >
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[{ required: true, message: 'Please input your email!' }]}
                     >
-                        <Form.Item
-                            label="Email"
-                            name="email"
-                            rules={[{ required: true, message: 'Please input your email!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
+                        <Input placeholder="Nhập email của bạn" />
+                    </Form.Item>
 
-                        <Form.Item
-                            label="Password"
-                            name="password"
-                            rules={[{ required: true, message: 'Please input your password!' }]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
+                    <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Input.Password placeholder="Nhập mật khẩu" />
+                    </Form.Item>
 
-                        <Form.Item
-                            label="Name"
-                            name="name"
-                            rules={[{ required: true, message: 'Please input your name!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
+                    <Form.Item
+                        label="Name"
+                        name="name"
+                        rules={[{ required: true, message: 'Please input your name!' }]}
+                    >
+                        <Input placeholder="Nhập tên của bạn" />
+                    </Form.Item>
 
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Submit
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                    <Link to={"/"}><ArrowLeftOutlined /> Quay lại trang chủ</Link>
-                    <Divider />
-                    <div style={{ textAlign: "center" }}>
-                        Đã có tài khoản? <Link to={"/login"}>Đăng nhập</Link>
-                    </div>
-                </fieldset>
-            </Col>
-        </Row>
+                    <Form.Item
+                        label="Số điện thoại"
+                        name="phone"
+                    >
+                        <Input placeholder="Nhập số điện thoại" />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Địa chỉ"
+                        name="address"
+                    >
+                        <Input placeholder="Nhập địa chỉ" />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Register
+                        </Button>
+                    </Form.Item>
+                </Form>
+                <div style={{ marginTop: 20 }}>
+                    <Link to={"/"} style={{ color: '#666' }}><ArrowLeftOutlined /> Quay lại trang chủ</Link>
+                </div>
+                <Divider />
+                <div style={{ textAlign: "center" }}>
+                    Đã có tài khoản? <Link to={"/login"} style={{ fontWeight: 600 }}>Đăng nhập ngay</Link>
+                </div>
+            </div>
+        </div>
     );
 };
 

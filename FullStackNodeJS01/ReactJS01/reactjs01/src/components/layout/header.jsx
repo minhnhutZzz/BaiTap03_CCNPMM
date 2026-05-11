@@ -55,7 +55,11 @@ const Header = () => {
         setCurrent(e.key);
     };
 
-    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+    return (
+        <div className="custom-header">
+            <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+        </div>
+    );
 };
 
 export default Header;

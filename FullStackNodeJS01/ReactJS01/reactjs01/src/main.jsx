@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import { ConfigProvider } from 'antd';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 
 import {
@@ -40,8 +42,18 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <AuthWrapper>
-            <RouterProvider router={router} />
-        </AuthWrapper>
+        <ConfigProvider
+            theme={{
+                token: {
+                    colorPrimary: '#667eea',
+                    fontFamily: 'Inter, sans-serif',
+                    borderRadius: 8,
+                },
+            }}
+        >
+            <AuthWrapper>
+                <RouterProvider router={router} />
+            </AuthWrapper>
+        </ConfigProvider>
     </React.StrictMode>,
 )

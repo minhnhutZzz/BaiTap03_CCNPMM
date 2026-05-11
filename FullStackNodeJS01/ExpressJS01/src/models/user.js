@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    phone: String,
+    address: String,
 }, {
     timestamps: true, // tự động tạo createdAt và updatedAt
 });

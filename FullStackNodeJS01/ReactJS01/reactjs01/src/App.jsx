@@ -41,7 +41,9 @@ function App() {
                 :
                 <>
                     <Header />
-                    <Outlet />
+                    <div className="page-container">
+                        <Outlet />
+                    </div>
                 </>
             }
         </div>
