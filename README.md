@@ -2,6 +2,12 @@
 
 Dự án bài tập môn **Các Công Nghệ Phần Mềm Mới**, xây dựng một ứng dụng Full-stack hoàn chỉnh bao gồm Frontend (ReactJS) và Backend (Node.js/Express) với cơ sở dữ liệu MongoDB.
 
+## 👨‍💻 Thông tin Sinh viên
+- **Họ và tên:** Đào Minh Nhựt
+- **MSSV:** 23110282
+- **Chuyên ngành:** Công nghệ phần mềm (Software Engineering)
+- **Môn học:** Các công nghệ phần mềm mới
+
 ## 🚀 Các Tính Năng Nổi Bật (Features)
 
 ### 1. Authentication & Security (Bảo mật)
